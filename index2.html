@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="description" content="Post Production File Name Generator">
+<meta name="keywords" content="post, video, fine, conventions, filename, generator">
+<meta name="author" content="Matias Canelson">
+<title>Filename Generator</title>
+<link rel="stylesheet" type="text/css" href="view.css" media="all">
+<!--
+Todo:
+* New tag: Subtitled.
+* Remove spaces from filename.
+* New tag: Date.
+* New tag: VFX.
+* New tag: For Review.
+* Checkbox or Dropdown for Option  
+* Checkbox or Dropdown for Version.
+* If no content, then no information in filename.
+-->
+	
+</head>
+<body id="main_body" >
+	
+	<img id="top" src="top.png" alt="">
+	<div id="form_container">
+		
+	<h1><a></a></h1>
+
+	<article>
+	<form id="form_104914" class="appnitro" onsubmit="return false" oninput="totalamount.value = 'v0103' + '_' + '1001' + '_' +client.value + '_' + campaign.value + '_' + spotname.value + '_' + market.value  + '_' + duration.value + '_' + version.value + '_' + audio.value + '_' + status.value">
+		
+	<div class="form_description">
+		<h2>Filename Generator</h2>
+            <p>Helps users name their files.</p>
+		</div>						
+			<ul >
+			<li id="li_1" >
+				<div>Client:<input name="client" id="client" type="text" maxlength="100" value=""/></div></li>
+			<li id="li_2" >
+				<div>Campaign:<input name="campaign" id="campaign" type="text"></div></li>
+			<li id="li_3" >
+				<div>Spot Name:<input name="spotname" id="spotname" type="text"></div></li>
+			<li id="li_4" >
+				<div>Market:<input list="market" name="market" />
+					<datalist id="market">
+						<option value="HM" >
+						<option value="OLV" >
+						<option value="SM_Vertical" >
+						<option value="SM_Square" >
+						<option value="GM" >
+						<option value="InternalUse" >
+						<option value="Country?" >
+					</datalist>
+				</div></li>
+			<li id="li_5" >
+				<div>Duration:<input list="duration" name="duration" />
+					<datalist id="duration">
+						<option value="15s" >
+						<option value="30s" >
+						<option value="60s" >
+						<option value="XXs" >
+					</datalist>
+				</div></li>
+			<li id="li_6" ><div>
+				Option/Version:<input name="version" id="version" type="text"></div></li>
+
+			<!-- <li id="li_6" ><div>
+					<input type="checkbox" id="option" name="option" value="option">
+						Option:<input name="option" id="option" type="text"></div></li>
+				<li id="li_6" ><div>
+					<input type="checkbox" id="vehicle2" name="vehicle2" value="Car">
+						Version:<input name="version" id="version" type="text">
+				</div></li> -->
+			<li id="li_7" >
+				<div>Audio:<select class="audio" id="audio" name="audio"> 
+					<option value="" selected="selected"></option>
+					<option value="OfflineAudio" >Offline Audio Mix</option>
+					<option value="0db" >0db</option>
+					<option value="-24LKFS" >-24 LKFS</option>
+				</select></div></li>
+			<li id="li_8" >
+				<div>Status:<select class="status" id="status" name="status"> 
+					<option value="" selected="selected"></option>
+					<option value="OfflineCut" >Offline Cut</option>
+					<option value="Online" >Online</option>
+					<option value="MASTER" >Master</option>
+					<option value="MASTER_Clean" >Clean</option>
+				</select></div></li>
+			<li id="li_9" >
+				File Name: <output name="totalamount" id="totalamount" for="principal period interest"></output>
+				</li>
+      			</ul>
+			<li class="buttons">
+				<input id="reset" class="button_text" type="reset" name="reset" value="Reset" />
+			</li>
+		</form>
+        <footer>
+            <h1></h1>
+            <p></p>
+        </footer>
+    </article>
+		<div id="footer">
+			&#x1f47e;
+		</div>
+	</div>
+	<img id="bottom" src="bottom.png" alt="">
+	</body>
+</html>
