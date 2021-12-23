@@ -7,20 +7,15 @@
 <meta name="author" content="Matias Canelson">
 <title>Filename Generator</title>
 <link rel="stylesheet" type="text/css" href="view.css" media="all">
+
 <!--
-Todo:
-* New tag: Subtitled.
+ToDo:
 * Remove spaces from filename.
-* New tag: Date.
-* New tag: VFX.
-* New tag: For Review.
-* Checkbox or Dropdown for Option  
-* Checkbox or Dropdown for Version.
 * If no content, then no information in filename.
 -->
 	
 </head>
-<body id="main_body" >
+<body id="main_body" onload="SetDate();">
 	
 	<img id="top" src="top.png" alt="">
 	<div id="form_container">
@@ -28,13 +23,14 @@ Todo:
 	<h1><a></a></h1>
 
 	<article>
-	<form id="form_104914" class="appnitro" onsubmit="return false" oninput="totalamount.value = client.value + '_' + campaign.value + '_' + spotname.value + '_' + market.value  + '_' + duration.value + '_' + version.value + '_' + audio.value + '_' + status.value">
+	<form id="form_104914" class="appnitro" onsubmit="return false" oninput="totalamount.value = client.value + '_' + campaign.value + '_' + spotname.value + '_' + market.value  + '_' + duration.value + '_v' + version.value + '_' + audio.value + '_' + status.value + '_' + extras.value + '_' + date.value">
 		
 	<div class="form_description">
 		<h2>Filename Generator</h2>
             <p>Helps users name their files.</p>
 		</div>						
 			<ul >
+		<table><tr><td>
 			<li id="li_1" >
 				<div>Client:<input name="client" id="client" type="text" maxlength="100" value=""/></div></li>
 			<li id="li_2" >
@@ -64,14 +60,6 @@ Todo:
 				</div></li>
 			<li id="li_6" ><div>
 				Option/Version:<input name="version" id="version" type="text"></div></li>
-
-			<!-- <li id="li_6" ><div>
-					<input type="checkbox" id="option" name="option" value="option">
-						Option:<input name="option" id="option" type="text"></div></li>
-				<li id="li_6" ><div>
-					<input type="checkbox" id="vehicle2" name="vehicle2" value="Car">
-						Version:<input name="version" id="version" type="text">
-				</div></li> -->
 			<li id="li_7" >
 				<div>Audio:<select class="audio" id="audio" name="audio"> 
 					<option value="" selected="selected"></option>
@@ -85,20 +73,57 @@ Todo:
 					<option value="OfflineCut" >Offline Cut</option>
 					<option value="Online" >Online</option>
 					<option value="MASTER" >Master</option>
-					<option value="MASTER_Clean" >Clean</option>
-				</select></div></li>
-			<li id="li_9" >
-				File Name: <output name="totalamount" id="totalamount" for="principal period interest"></output>
+					<option value="MASTER_Generic" >Generic</option>
+				</select></div></li></tr>
+            <td> <li id="li_9" >
+                    <div>Subtitled: <input type="radio" id="extras" name="extras" value="Subtitled">
+                    </div></li></td>
+            <td><li><div>Not Subtitled: <input type="radio" id="extras" name="extras" value="">  
+                    </div></li>
+            </td>
+            <tr>
+            <td><li id="li_10" >
+                <div>Add date (YYMMDD): <input type="radio" id="date" name="date">
+                </div></li>
+            </td>
+<script type="text/javascript">
+function SetDate()
+{
+var date = new Date();
+
+var day = date.getDate();
+var month = date.getMonth() + 1;
+var year = date.getFullYear() - 2000;
+
+
+if (month < 10) month = "0" + month;
+if (day < 10) day = "0" + day;
+
+
+var today = year + "" + month + ""+ day;
+
+
+document.getElementById('date').value = today;
+}
+</script>
+                           
+                            <td>
+                                <li><div>No date: <input type="radio" id="date" name="date" value="">
+                                    </div></li>
+                            </td>
+                        </tr>
+                </table>
+			<li id="li_11" align="center" style="font-weight:bolder; background-color: #F5F5F5; padding:10px">
+				<output name="totalamount" id="totalamount" for="filename"></output>
 				</li>
-      			</ul>
 			<li class="buttons">
-				<input id="reset" class="button_text" type="reset" name="reset" value="Reset" />
-			</li>
+				<input id="reset" class="button_text" type="reset" name="reset" value="Reset" /> 
+                </li></ul>
 		</form>
-        <footer>
+       <!-- <footer>
             <h1></h1>
-            <p></p>
-        </footer>
+            <p></p> 
+        </footer> -->
     </article>
 		<div id="footer">
 			&#x1f47e;
