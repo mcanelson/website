@@ -23,7 +23,7 @@ ToDo:
 	<h1><a></a></h1>
 
 	<article>
-	<form id="form_104914" class="appnitro" onsubmit="return false" oninput="totalamount.value = client.value + '_' + campaign.value + '_' + spotname.value + '_' + market.value  + '_' + duration.value + '_v' + version.value + '_' + audio.value + '_' + status.value + '_' + extras.value + '_' + today.value">
+	<form id="form_104914" class="appnitro" onsubmit="return false" oninput="totalamount.value = client.value + '_' + campaign.value + '_' + spotname.value + '_' + market.value  + '_' + duration.value + '_v' + version.value + '_' + audio.value + '_' + status.value + '_' + extras.value + '_' + todayis.value">
 	<div class="form_description">
 		<h2>Filename Generator</h2>
            	<p>Fill in the blanks, get a proper filename.</p>
@@ -86,7 +86,8 @@ if (checkbox.checked != true)
       document.getElementById('extras').value = "";
 }
 </script>
-            <li id="li_10" >
+				</div>
+		<li id="li_10" >
                 <div>Add date (YYMMDD): <input type="checkbox" onclick="todaysdate()" id="todayis" />
                	</div></li>
 		    
