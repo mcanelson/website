@@ -8,10 +8,10 @@
 <title>Filename Generator</title>
 <link rel="stylesheet" type="text/css" href="view.css" media="all">
 
-<!--
+	<!--
 ToDo:
-* Remove spaces from filename.
-* If no content, then no information in filename.
+* Remove spaces from filename before copying to clipboard.
+* Remove double underscores before copying to clipboard.
 -->
 	
 </head>
@@ -27,7 +27,7 @@ ToDo:
 		
 	<div class="form_description">
 		<h2>Filename Generator</h2>
-            <p>Helps users name their files.</p>
+           	<p>Fill in the blanks, get a proper filename.</p>
 		</div>						
 			<ul >
 		<table><tr><td>
@@ -116,9 +116,21 @@ document.getElementById('date').value = today;
 			<li id="li_11" align="center" style="font-weight:bolder; background-color: #F5F5F5; padding:10px">
 				<output name="totalamount" id="totalamount" for="filename"></output>
 				</li>
-			<li class="buttons">
-				<input id="reset" class="button_text" type="reset" name="reset" value="Reset" /> 
-                </li></ul>
+						<li class="buttons">
+                <input id="reset" class="button_text" type="reset" name="copy" value="Copy filename to clipboard" Onclick="copyEvent('totalamount')"/>
+
+<script>
+    function copyEvent(id)
+    {
+        var str = document.getElementById(id);
+        window.getSelection().selectAllChildren(str);
+        document.execCommand("Copy")
+    }
+</script>
+        
+                <input id="reset" class="button_text" type="reset" name="reset" value="Reset" />
+                </li>
+		</ul>
 		</form>
        <!-- <footer>
             <h1></h1>
