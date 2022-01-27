@@ -23,7 +23,7 @@ ToDo:
 	<h1><a></a></h1>
 
 	<article>
-	<form id="form_104914" class="appnitro" onsubmit="return false" oninput="totalamount.value = client.value + '_' + campaign.value + '_' + spotname.value + '_' + market.value  + '_' + duration.value + '_v' + version.value + '_' + audio.value + '_' + status.value + '_' + extras.value + '_' + todayis.value">
+	<form id="form_104914" class="appnitro" onsubmit="return false" oninput="totalamount.value = client.value + '_' + campaign.value + '_' + spotname.value + '_' + market.value  + '_' + duration.value + '_v' + version.value + '_' + audio.value + status.value + extras.value + '_' + todayis.value">
 	<div class="form_description">
 		<h2>Filename Generator</h2>
            	<p>Fill in the blanks, get a proper filename.</p>
@@ -68,27 +68,27 @@ ToDo:
 			<li id="li_8" >
 				<div>Status:<select class="status" id="status" name="status"> 
 					<option value="" selected="selected"></option>
-					<option value="OfflineCut" >Offline Cut</option>
-					<option value="Online" >Online</option>
-					<option value="MASTER" >Master</option>
-					<option value="MASTER_Generic" >Generic</option>
+					<option value="_OfflineCut" >Offline Cut</option>
+					<option value="_Online" >Online</option>
+					<option value="_MASTER" >Master</option>
+					<option value="_MASTER_Generic" >Generic</option>
 				</select></div></li>
        			<li id="li_9" >
-              			  <div>Subtitled: <input type="checkbox" onclick="subtitled()" id="extras" />       
+              			  <div>Subtitled: <input type="checkbox" onclick="subtitled()" id="extras" value="" />       
 
 <script>
 function subtitled()
 {
   var checkbox = document.getElementById('extras');
   if (checkbox.checked != false)
-      document.getElementById('extras').value = "Subtitled";
+      document.getElementById('extras').value = "_Subtitled";
 if (checkbox.checked != true)
       document.getElementById('extras').value = "";
 }
 </script>
 				</div>
 		<li id="li_10" >
-                <div>Add date (YYMMDD): <input type="checkbox" onclick="todaysdate()" id="todayis" />
+                <div>Add date (YYMMDD): <input type="checkbox" onclick="todaysdate()" id="todayis" value="" />
                	</div></li>
 		    
 <script type="text/javascript">
