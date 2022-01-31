@@ -8,7 +8,7 @@
 <title>Filename Generator</title>
 <!--
 To-Do:
-1) Show _v only when data is added to version textbox.
+Show _v only when data is added to version textbox.
 -->
 <style>
 body
@@ -26,9 +26,10 @@ body
 	border:1px solid #ccc;
 	margin:0 auto;
 	text-align:left;
-    width:800px;
-    overflow-wrap: break-word;
+    	width:800px;
+    	overflow-wrap: break-word;
 }
+	
 #top
 {
 	display:block;
@@ -45,6 +46,7 @@ body
 	padding-bottom: 15px;
 	font-size: 85%;
 }
+    
 #bottom
 {
 	display:block;
@@ -58,7 +60,9 @@ form.appnitro
 	margin:20px 20px 0;
 	padding:0 0 20px;
 }
+	
 /**** Logo Section  *****/
+	
 h1
 {
 	background-color:#8A0808;
@@ -67,7 +71,6 @@ h1
 	padding:0;
 	text-decoration:none;
 	text-indent:-8000px;
-	
 }
 
 h1 a
@@ -79,13 +82,14 @@ h1 a
 	overflow:hidden;
 }
 
-
 img
 {
 	behavior:url(css/iepngfix.htc);
 	border:none;
-}    
+}  
+	
 /**** Form Section ****/
+	
 .appnitro
 {
 	font-family:Lucida Grande, Tahoma, Arial, Verdana, sans-serif;
@@ -112,13 +116,15 @@ form li
 	margin:0;
 	padding:4px 5px 8px 9px;
 	position:relative;
-}    
+}
+	
 .buttons
 {
 	clear:both;
 	display:block;
 	margin-top:10px;
 }
+	
 .form_description h2
 {
 	clear:left;
@@ -133,11 +139,14 @@ form li
 	line-height:130%;
 	margin:0 0 12px;
 }
+	
 form hr
 {
 	display:none;
 }
+	
 /**** Buttons ****/
+	
 input.button_text
 {
 	overflow:visible;
@@ -168,6 +177,7 @@ input.radio
 	margin:6px 0 0 3px;
 	width:13px;
 }
+	
 .buttons
 {
 	clear:both;
@@ -184,9 +194,7 @@ input.radio
 {
 	height:1%;
 }
-
 </style>
-    
 <script type="text/javascript">
 function getDate()
 {
@@ -202,90 +210,94 @@ function getDate()
   var today = "_" + year + month + day;
   return today;
 }
-</script>    
-    
+</script> 	
 </head>
 <body id="main_body" onload="getDate();">
 	<div id="form_container">
-
 	<article>
-	<form class="appnitro" onsubmit="return false" oninput="totalamount.value = client.value + '_' + campaign.value + '_' + spotname.value + '_' + market.value  + '_' + duration.value + '_v' + version.value + audio.value + status.value + extras.value + todayis.value" onkeyup="totalamount.value = totalamount.value.replace(/_{2,}/, '_')" onkeydown="totalamount.value = totalamount.value.replace(/_{2,}/, '_')" onchange="totalamount.value = totalamount.value.replace(/_{2,}/, '_')">
+	<form class="appnitro" onsubmit="return false" oninput="totalamount.value = client.value + '_' + campaign.value + '_' + spotname.value + '_' + aspectratio.value + '_' + market.value + '_' + duration.value + '_v' + version.value + audio.value + status.value + extras.value + todayis.value" onkeyup="totalamount.value = totalamount.value.replace(/_{2,}/, '_')" onkeydown="totalamount.value = totalamount.value.replace(/_{2,}/, '_')" onchange="totalamount.value = totalamount.value.replace(/_{2,}/, '_')">
 	<div class="form_description">
 		<h2>Filename Generator</h2>
            	<p style="color: #666666">Fill in the blanks, get a proper filename.</p>
 		</div>						
 			<ul >
 			<li id="li_1" >
-                <label for='client'>
-                    Client: </label><input name="client" id="client" type="text" maxlength="100" value="" /></li>
+				<label for='client'>
+                    		Client: </label><input name="client" id="client" type="text" maxlength="100" value="" /></li>
 			<li id="li_2" >
-                <label for='campaign'>
-                    Campaign: </label><input name="campaign" id="campaign" type="text" value="" /></li>
+				<label for='campaign'>
+                   	 	Campaign: </label><input name="campaign" id="campaign" type="text" value="" /></li>
 			<li id="li_3" >
-                <label for='spotname'>
-                    Spot Name: </label><input name="spotname" id="spotname" type="text" value="" /></li>
-			<li id="li_4" >
-                <label for='market'>
-                    Market: </label><input list="market" name="market" />
-					<datalist id="market">
-						<option value="GM" >
-						<option value="OLV" >
-						<option value="SM_Vertical" >
-						<option value="SM_Square" >
-						<option value="HM" >
-						<option value="InternalUse" >
-						<option value="Country?" >
-					</datalist>
-				</li>
+				<label for='spotname'>
+                    		Spot Name: </label><input name="spotname" id="spotname" type="text" value="" /></li>
+            <li id="li_4" >
+				<label for='aspectratio'>
+                    		Aspect Ratio: </label><select class="aspectratio" id="aspectratio" name="aspectratio"> 
+					   <option value="" selected="selected"></option>
+					   <option value="_1x1" >1x1</option>
+                        <option value="_2x3" >2x3</option>
+					   <option value="_4x5" >4x5</option>
+					   <option value="_9x16" >9x16</option>
+                        <option value="_16x9" >16x9</option>
+				</select></li>
 			<li id="li_5" >
+				<label for='market'>
+                    		Market: </label><input list="market" name="market" />
+					<datalist id="market">
+						<option value="Broadcast" />
+						<option value="Digital" />
+						<option value="Youtube" />
+						<option value="Instagram" />
+						<option value="Other? Type in..." >
+					</datalist></li>
+			<li id="li_6" >
 				<label for='duration'>
-                    Duration: </label><input list="duration" name="duration" />
+                    		Duration: </label><input list="duration" name="duration" />
 					<datalist id="duration">
                         <option value="06s" >
 						<option value="15s" >
 						<option value="30s" >
 						<option value="60s" >
 						<option value="XXs" >
-					</datalist>
-				</li>
-			<li id="li_6" >
-				<label for='version'>
-                    Version: </label><input name="version" id="version" type="text" value="" /></li>
-			<li id="li_7" >
-				<label for='audio'>
-                    Audio: </label><select class="audio" id="audio" name="audio"> 
-					<option value="" selected="selected"></option>
-					<option value="_OfflineAudio" >Offline Audio Mix</option>
-					<option value="_0db" >0db</option>
-					<option value="_-24LKFS" >-24 LKFS</option>
-				</select></li>
+					</datalist></li>
+			<li id="li_7" ><label for='version'>
+                   		 Version: </label><input name="version" id="version" type="text" value="" /></li>
 			<li id="li_8" >
-				<label for='status'>
-                    Status: </label><select class="status" id="status" name="status"> 
-					<option value="" selected="selected"></option>
-					<option value="_OfflineCut" >Offline Cut</option>
-					<option value="_Online" >Online</option>
-                    <option value="_MASTER" >Master</option>
-					<option value="_MASTER_Generic" >Generic</option>
+				<label for='audio'>
+                    		Audio: </label><select class="audio" id="audio" name="audio"> 
+					   <option value="" selected="selected"></option>
+					   <option value="_OfflineAudio" >Offline Audio Mix</option>
+					   <option value="_0db" >0db</option>
+					   <option value="_-24LKFS" >-24 LKFS</option>
 				</select></li>
-       	    <li id="li_9" >
-                <label for='subtitled'>
-                    Subtitled: </label><input type="checkbox" onclick="subtitled()" id="extras" value=""/>       
+			<li id="li_9" >
+				<label for='status'>
+                    		Status: </label><select class="status" id="status" name="status"> 
+				        <option value="" selected="selected"></option>
+				        <option value="_OfflineCut" >Offline Cut</option>
+                        <option value="_VFXReview" >VFX Review</option>
+				        <option value="_Online" >Online</option>
+                        <option value="_MASTER" >Master</option>
+					   <option value="_MASTER_Generic" >Generic</option>
+				</select></li>
+       			<li id="li_10" >
+              			<label for='subtitled'>
+                   		Subtitled: </label><input type="checkbox" onclick="subtitled()" id="extras" value=""/>           
+
 <script>
 function subtitled()
 {
   var checkbox = document.getElementById('extras');
-    if (checkbox.checked == true)
-      document.getElementById('extras').value = "_Subtitled";
-    if (checkbox.checked == false)
+  if (checkbox.checked == true)
+      document.getElementById('extras').value = "Subtitled";
+  if (checkbox.checked == false)
       document.getElementById('extras').value = "";
 }
 </script>
-				</li>
-		<li id="li_10" >
+			</li>
+		<li id="li_11" >
                 <label for='date'>
-                    Add date (YYMMDD): </label><input type="checkbox" onclick="todaysdate()" id="todayis" value="" />
-               	</li>
+                    Add date (YYMMDD): </label><input type="checkbox" onclick="todaysdate()" id="todayis" value="" /></li>				  
 <script type="text/javascript">
 function todaysdate()
 {
@@ -296,10 +308,9 @@ function todaysdate()
     document.getElementById('todayis').value = "";
 }
 </script>
-					  
-			<li id="li_11" align="center" style="font-weight:normal; background-color: #F5F5F5; margin-top: 10px; padding:10px">
-				<output style="font-family: Courier; font-size:medium" name="totalamount" id="totalamount" for="client campaign spotname market duration version audio status extras todayis"></output>
-                </li>
+			<li id="li_12" align="center" style="font-weight:normal; background-color: #F5F5F5; margin-top: 10px; padding:10px">
+				<output style="font-family: Courier; font-size:medium" name="totalamount" id="totalamount" for="client campaign spotname aspectratio market duration version audio status extras todayis"></output>
+				</li>
 			<li class="buttons" align="center">
                 <input id="button" class="button_text" type="button" name="copy" value="Copy filename to clipboard" Onclick="copyEvent('totalamount')"/>
 <script>
@@ -315,7 +326,8 @@ function todaysdate()
     function clearForm() {
         var pTag = (document.getElementById('todayis').value = "");
         var pTag = (document.getElementById('extras').value = ""); }
-</script>                
+</script>
+                <input id="download" class="button_text" type="button" name="download" value="Download" onclick="window.location.href='https://github.com/mcanelson/namer/archive/refs/heads/main.zip';"/>
                 </li>
 		</ul>
 		</form>
@@ -325,7 +337,7 @@ function todaysdate()
         </footer> -->
     </article>
 		<div id="footer">
-		<a href="#" title="v220129" style="text-decoration: none;">&#x1f47e;</a>
+			<a href="#" title="v220131" style="text-decoration: none;">&#x1f47e;</a>
 		</div>
 	</div>
 	</body>
