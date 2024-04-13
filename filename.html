@@ -1,0 +1,352 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="description" content="Post Production File Name Generator">
+<meta name="keywords" content="post, video, fine, conventions, filename, generator">
+<meta name="author" content="Matias Canelson">
+<title>Filename Generator</title>
+<!--
+To-Do:
+Show _v only when data is added to version textbox.
+-->
+<style>
+body
+{
+	background:#424242;
+	font-family:"Lucida Grande", Tahoma, Arial, Verdana, sans-serif;
+	font-size:small;
+	margin:8px 0 16px;
+	text-align:center;
+}
+    
+#form_container
+{
+	background:#fff;
+	border:1px solid #ccc;
+	margin:0 auto;
+	text-align:left;
+    	width:800px;
+    	overflow-wrap: break-word;
+}
+	
+#top
+{
+	display:block;
+	height:10px;
+	margin:10px auto 0;
+	width:650px;
+}
+
+#footer
+{
+	clear:both;
+	color:#999999;
+	text-align:center;
+	padding-bottom: 15px;
+	font-size: 85%;
+}
+    
+#bottom
+{
+	display:block;
+	height:10px;
+	margin:0 auto;
+	width:650px;
+}
+
+form.appnitro
+{
+	margin:20px 20px 0;
+	padding:0 0 20px;
+}
+	
+/**** Logo Section  *****/
+	
+h1
+{
+	background-color:#8A0808;
+	margin:0;
+	min-height:0;
+	padding:0;
+	text-decoration:none;
+	text-indent:-8000px;
+}
+
+h1 a
+{
+	
+	display:block;
+	height:100%;
+	min-height:40px;
+	overflow:hidden;
+}
+
+img
+{
+	behavior:url(css/iepngfix.htc);
+	border:none;
+}  
+	
+/**** Form Section ****/
+	
+.appnitro
+{
+	font-family:Lucida Grande, Tahoma, Arial, Verdana, sans-serif;
+	font-size:small;
+}
+
+.appnitro li
+{
+	width:98%;
+}
+    
+form ul
+{
+	font-size:100%;
+	list-style-type:none;
+	margin:0;
+	padding:0;
+	width:100%;
+}
+
+form li
+{
+	display:block;
+	margin:0;
+	padding:4px 5px 8px 9px;
+	position:relative;
+}
+	
+.buttons
+{
+	clear:both;
+	display:block;
+	margin-top:10px;
+}
+	
+.form_description h2
+{
+	clear:left;
+	font-size:160%;
+	font-weight:400;
+	margin:0 0 3px;
+}
+
+.form_description p
+{
+	font-size:95%;
+	line-height:130%;
+	margin:0 0 12px;
+}
+	
+form hr
+{
+	display:none;
+}
+	
+/**** Buttons ****/
+	
+input.button_text
+{
+	overflow:visible;
+	padding:0 7px;
+	width:auto;
+}
+
+.buttons input
+{
+	font-size:120%;
+	margin-right:5px;
+}
+
+input.checkbox
+{
+	display:block;
+	height:13px;
+	line-height:1.4em;
+	margin:6px 0 0 3px;
+	width:13px;
+}
+
+input.radio
+{
+	display:block;
+	height:13px;
+	line-height:1.4em;
+	margin:6px 0 0 3px;
+	width:13px;
+}
+	
+.buttons
+{
+	clear:both;
+	display:block;
+	margin-top:10px;
+}
+
+* html form li
+{
+	height:1%;
+}
+
+* html .buttons
+{
+	height:1%;
+}
+</style>
+<script type="text/javascript">
+function getDate()
+{
+  var date = new Date();
+
+  var day = date.getDate();
+  var month = date.getMonth() + 1;
+  var year = date.getFullYear() - 2000;
+
+  if (month < 10) month = "0" + month;
+  if (day < 10) day = "0" + day;
+
+  var today = "_" + year + month + day;
+  return today;
+}
+</script> 	
+</head>
+<body id="main_body" onload="getDate();">
+	<div id="form_container">
+	<article>
+	<form class="appnitro" onsubmit="return false" oninput="totalamount.value = status.value + version.value + '_'  + client.value + '_' + CSNB.value + '_' + campaign.value + '_' + spotname.value + '_' + duration.value + aspectratio.value + '_' + medium.value + audio.value + '_' + extras.value + todayis.value" onkeyup="totalamount.value = totalamount.value.replace(/_{2,}/, '_')" onkeydown="totalamount.value = totalamount.value.replace(/_{2,}/, '_')" onchange="totalamount.value = totalamount.value.replace(/_{2,}/, '_')">
+	<div class="form_description">
+		<h2>Filename Generator</h2>
+           	<p style="color: #666666">Fill in the blanks, get a proper filename.</p>
+		</div>						
+			<ul >
+                <li id="li_7" ><label for='version'>
+                   	    Version: </label><input name="version" id="version" type="text" value="" /></li>
+			<li id="li_1" >
+				<label for='client'>
+                        Client: </label><input name="client" id="client" type="text" maxlength="100" value="" /></li>
+			 <li id="li_11" >
+				<label for='CSNB'>
+                        Type: </label><select class="CSNB" id="CSNB" name="CSNB"> 
+					   <option value="" selected="selected"></option>
+                        <option value="_CS" >Case Study</option>
+                        <option value="_NB" >New Business</option>
+				</select></li>
+            <li id="li_2" >
+				<label for='campaign'>
+                   	 	Project: </label><input name="campaign" id="campaign" type="text" value="" /></li>
+			<li id="li_3" >
+				<label for='spotname'>
+                        Spot Name: </label><input name="spotname" id="spotname" type="text" value="" /></li>
+        	<li id="li_6" >
+				<label for='duration'>
+                        Duration: </label><input list="duration" name="duration" />
+					<datalist id="duration">
+                        <option value="06s" >
+						<option value="15s" >
+						<option value="30s" >
+						<option value="60s" >
+						<option value="XXs" >
+					</datalist></li>
+             <li id="li_4" >
+				<label for='aspectratio'>
+                        Aspect Ratio: </label><select class="aspectratio" id="aspectratio" name="aspectratio"> 
+					   <option value="" selected="selected"></option>
+					   <option value="_1x1" >1x1</option>
+                        <option value="_2x3" >2x3</option>
+					   <option value="_4x5" >4x5</option>
+					   <option value="_9x16" >9x16</option>
+                        <option value="_16x9" >16x9</option>
+				</select></li>
+			<li id="li_5" >
+				<label for='medium'>
+                        Medium: </label><input list="medium" name="medium" />
+					<datalist id="medium">
+						<option value="Broadcast" />
+						<option value="Digital" />
+						<option value="Youtube" />
+						<option value="Instagram" />
+						<option value="Other? Type in" >
+					</datalist></li>
+
+			<li id="li_8" >
+				<label for='audio'>
+                    		Audio: </label><select class="audio" id="audio" name="audio"> 
+					   <option value="" selected="selected"></option>
+					   <option value="_OfflineAudio" >Offline Audio Mix</option>
+					   <option value="_0db" >0db</option>
+					   <option value="_-24LKFS" >-24 LKFS</option>
+				</select></li>
+			<li id="li_9" >
+				<label for='status'>
+                    		Status: </label><select class="status" id="status" name="status"> 
+				        <option value="" selected="selected"></option>
+				        <option value="OfflineCut_" >Offline Cut</option>
+                        <option value="VFXReview_" >VFX Review</option>
+				        <option value="Online_" >Online</option>
+                        <option value="MASTER_" >Master</option>
+                        <option value="GENERIC_" >Generic</option>
+				</select></li>
+       			<li id="li_10" >
+              			<label for='subtitled'>
+                   		Subtitled: </label><input type="checkbox" onclick="subtitled()" id="extras" value=""/>           
+
+<script>
+function subtitled()
+{
+  var checkbox = document.getElementById('extras');
+  if (checkbox.checked == true)
+      document.getElementById('extras').value = "Subtitled";
+  if (checkbox.checked == false)
+      document.getElementById('extras').value = "";
+}
+</script>
+			</li>
+		<li id="li_11" >
+                <label for='date'>
+                    Add date (YYMMDD): </label><input type="checkbox" onclick="todaysdate()" id="todayis" value="" /></li>				  
+<script type="text/javascript">
+function todaysdate()
+{
+  var checkbox = document.getElementById('todayis');
+  if (checkbox.checked == true)
+    document.getElementById('todayis').value = getDate();
+  else if (checkbox.checked == false)
+    document.getElementById('todayis').value = "";
+}
+</script>
+			<li id="li_12" align="center" style="font-weight:normal; background-color: #F5F5F5; margin-top: 10px; padding:10px">
+				<output style="font-family: Courier; font-size:medium" name="totalamount" id="totalamount" for="client campaign spotname aspectratio medium duration version audio status extras todayis"></output>
+				</li>
+			<li class="buttons" align="center">
+                <input id="button" class="button_text" type="button" name="copy" value="Copy filename to clipboard" Onclick="copyEvent('totalamount')"/>
+<script>
+    function copyEvent(id)
+    {
+        var str = document.getElementById(id);
+        window.getSelection().selectAllChildren(str);
+        document.execCommand("Copy")
+    }
+</script>
+                <input id="reset" class="button_text" type="reset" name="reset" value="Clear" onclick="clearForm()"/>
+<script>
+    function clearForm() {
+        var pTag = (document.getElementById('todayis').value = "");
+        var pTag = (document.getElementById('extras').value = ""); }
+</script>
+             <!--    <input id="download" class="button_text" type="button" name="download" value="Download" onclick="window.location.href='https://github.com/mcanelson/namer/archive/refs/heads/main.zip';"/>  -->
+                </li>
+		</ul>
+		</form>
+       <!-- <footer>
+            <h1></h1>
+            <p></p> 
+        </footer> -->
+    </article>
+		<div id="footer">
+			<a href="#" title="v220811" style="text-decoration: none;">&#x1f47e;</a>
+		</div>
+	</div>
+	</body>
+</html>
