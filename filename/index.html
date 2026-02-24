@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Post Production File Name Generator">
+    <meta name="keywords" content="post, video, fine, conventions, filename, generator">
+    <meta name="author" content="Matias Canelson">
+    <title>Filename Generator</title>
+    <style>
+        body {
+            background:#424242;
+            font-family: Arial, sans-serif;
+            margin: auto;
+            max-width: 900px;  
+        }
+        #form_container {
+        	background:#fff;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+        }
+        h2 {
+           	clear:left;
+            font-size:160%;
+            font-weight:400;
+            margin:0 0 3px;
+        }
+        h4 {
+            font-size:95%;
+            line-height:130%;
+            font-weight:200;
+            margin:0 0 40px;
+        }
+        .form-group {
+            max-width: 700px; 
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        label {
+            width: 200px;
+            text-align: right;
+            margin-right: 10px;
+        }
+        input, select {
+            flex: 1;
+        }
+        #omitDate {
+            flex: 0;
+            margin-right: 5px;
+        }
+        #subtitled {
+            flex: 0;
+        }
+        #output {
+            margin-top: 20px;
+            font-weight: bold;
+            color: #333;
+        }
+        #buttons {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+        }
+        button {
+            margin-left: 10px;
+        }
+        #footer {
+            clear:both;
+            color:#999999;
+            text-align:center;
+            font-size: 85%;
+        }
+    </style>
+</head>
+<body>
+    <div id="form_container">
+    <h2>Filename Generator</h2>
+    <h4>Fill in the blanks to get a proper filename.</h4>
+    <form id="dataForm">
+        <div class="form-group"><label>Client:</label> <input type="text" id="client"></div>
+        <div class="form-group"><label>Type:</label> 
+            <select id="type">
+                <option value=""></option>
+                <option value="CS">Case Study</option>
+                <option value="NB">New Business</option>
+            </select>
+        </div>
+        <div class="form-group"><label>Campaign:</label> <input type="text" id="campaign"></div>
+        <div class="form-group"><label>Spot Name:</label> <input type="text" id="spotName"></div>
+        <div class="form-group"><label>Duration:</label> 
+            <select id="duration" onchange="checkOtherDuration()">
+                <option value=""></option>
+                <option value="06">06</option>
+                <option value="15">15</option>
+                <option value="30">30</option>
+                <option value="60">60</option>
+                <option value="other">Other? Type in</option>
+            </select>
+            <input type="text" id="otherDuration" style="display:none;" placeholder="Type duration">
+        </div>
+        <div class="form-group"><label>Aspect Ratio:</label> 
+            <select id="aspectRatio">
+                <option value=""></option>
+                <option value="1x1">1x1</option>
+                <option value="2x3">2x3</option>
+                <option value="4x5">4x5</option>
+                <option value="9x16">9x16</option>
+                <option value="16x9">16x9</option>
+            </select>
+        </div>
+        <div class="form-group"><label>Medium:</label> 
+            <select id="medium">
+                <option value=""></option>
+                <option value="OLV">OLV</option>
+                <option value="Broadcast">Broadcast</option>
+                <option value="Social">Social</option>
+                <option value="InternalUse">Internal Use</option>
+                <option value="Pitch">Pitch</option>
+            </select>
+        </div>
+        <div class="form-group"><label>Audio:</label> 
+            <select id="audio">
+                <option value=""></option>
+                <option value="OfflineAudio">Offline Audio</option>
+                <option value="-24LKFS">Broadcast</option>
+                <option value="-0db">Digital</option>
+            </select>
+        </div>
+        <div class="form-group"><label>Status:</label> 
+            <select id="status">
+                <option value=""></option>
+                <option value="VFXreview">VFX Review</option>
+                <option value="Online">Online</option>
+                <option value="Master">Master</option>
+                <option value="Generic">Generic</option>
+            </select>
+        </div>
+        <div class="form-group"><label>Date:</label> <input type="checkbox" id="omitDate"> <input type="date" id="date"></div>
+        <div class="form-group"><label>Subtitled:</label> <input type="checkbox" id="subtitled"></div>
+        <div class="form-group"><label>Editor Initials:</label> <input type="text" id="editorInitials"></div>
+        <div class="form-group"><label>Version:</label> <input type="text" id="version"></div>
+        <div id="buttons">
+            <button type="button" onclick="generateString()">Generate</button>
+            <button type="button" onclick="copyToClipboard()">Copy filename to clipboard</button>
+            <button type="button" onclick="clearForm()">Clear</button>
+        </div>
+    </form>
+    <div id="output"></div>
+    <div id="footer">
+			<a href="#" title="v250226" style="text-decoration: none;">&#x1f47e;</a>
+    </div>
+</div>
+
+    <script>
+    function checkOtherDuration() {
+        const durationSelect = document.getElementById('duration');
+        const otherDurationInput = document.getElementById('otherDuration');
+        if (durationSelect.value === 'other') {
+            otherDurationInput.style.display = 'block';
+        } else {
+            otherDurationInput.style.display = 'none';
+            otherDurationInput.value = '';
+        }
+    }
+
+    function generateString() {
+        const client = document.getElementById('client').value;
+        const type = document.getElementById('type').value;
+        const campaign = document.getElementById('campaign').value;
+        const spotName = document.getElementById('spotName').value;
+        let duration = document.getElementById('duration').value;
+        if (duration === 'other') {
+            duration = document.getElementById('otherDuration').value;
+        }
+        const aspectRatio = document.getElementById('aspectRatio').value;
+        const medium = document.getElementById('medium').value;
+        const audio = document.getElementById('audio').value;
+        const status = document.getElementById('status').value;
+        const dateInput = document.getElementById('date').value;
+        const omitDate = document.getElementById('omitDate').checked;
+        const subtitled = document.getElementById('subtitled').checked ? 'SUBT' : '';
+        const editorInitials = document.getElementById('editorInitials').value;
+        let version = document.getElementById('version').value;
+
+        let formattedDate = "";
+        if (omitDate) {
+            const dateObj = dateInput ? new Date(dateInput) : new Date();
+            const yy = String(dateObj.getFullYear()).slice(-2);
+            const mm = String(dateObj.getMonth() + 1).padStart(2, '0');
+            const dd = String(dateObj.getDate()).padStart(2, '0');
+            formattedDate = `${yy}${mm}${dd}`;
+        }
+
+        let parts = [client, type, campaign, spotName, duration ? duration + 's' : '', aspectRatio, medium, audio, status, formattedDate, subtitled, editorInitials, version ? 'v' + version : ''];
+        let result = parts.filter(part => part).join('_');
+        document.getElementById('output').innerText = result;
+    }
+
+    function copyToClipboard() {
+        const outputText = document.getElementById('output').innerText;
+        if (!outputText) {
+            alert("No filename generated to copy!");
+            return;
+        }
+
+        navigator.clipboard.writeText(outputText).then(() => {
+            alert("Filename copied to clipboard!");
+        }).catch(err => {
+            console.error("Error copying text: ", err);
+            alert("Failed to copy. Please try manually.");
+        });
+    }
+
+    function clearForm() {
+        document.getElementById('dataForm').reset();
+        document.getElementById('output').innerText = '';
+        checkOtherDuration(); // Ensures the "Other" duration field is hidden after reset
+    }
+</script>
+</body>
+</html>
