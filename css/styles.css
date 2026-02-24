@@ -10058,6 +10058,7 @@ header.masthead {
   background-repeat: no-repeat;
   background-attachment: scroll;
   background-size: cover;
+  background-color: #343a40;
 }
 header.masthead h1 {
   font-size: 2.25rem;
