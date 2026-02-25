@@ -2464,9 +2464,9 @@ fieldset:disabled a.btn {
   border-color: #ffc110;
 }
 .btn-primary:hover {
-  color: #fff;
-  background-color: #f24516;
-  border-color: #ee3e0d;
+  color: #000;
+  background-color: #f8f9fa;
+  border-color: #f8f9fa;
 }
 .btn-primary:focus, .btn-primary.focus {
   color: #fff;
@@ -9988,6 +9988,10 @@ hr.light {
   padding: 4rem 0;
 }
 
+.page-section-samecolor {
+  padding: 2rem 0 3rem 0;
+}
+
 #mainNav {
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
   background-color: #fff;
@@ -10067,7 +10071,7 @@ header.masthead h1 {
   header.masthead {
     height: 50vh;
     min-height: 40rem;
-    padding-top: 4.5rem;
+    /*! padding-top: 4.5rem; */
     padding-bottom: 0;
   }
   header.masthead p {
