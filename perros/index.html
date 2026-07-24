@@ -14,9 +14,9 @@
 const PRICES = {
 
   coreServices: [
-    { name: "Complete Grooming", price: 80, includes: "Style Hair Cut, Bath, Coat Brushing, Nail Clipping, Ear Cleaning, Anal Gland Extraction, Hygienic (Shaving Privates)" },
-    { name: "Complete Bath",     price: 50, includes: "Bath, Coat Brushing, Nail Clipping, Ear Cleaning, Anal Gland Extraction, Hygienic (Shaving Privates)" },
-    { name: "Plain Bath",        price: 40, includes: "Bath, Coat Brushing, Ear Cleaning, Anal Gland Extraction" }
+    { name: "Complete Grooming*", price: 80, includes: "Style Hair Cut, Bath, Coat Brushing, Nail Clipping, Ear Cleaning, Anal Gland Extraction, Hygienic (Shaving Privates)" },
+    { name: "Complete Bath*",     price: 50, includes: "Bath, Coat Brushing, Nail Clipping, Ear Cleaning, Anal Gland Extraction, Hygienic (Shaving Privates)" },
+    { name: "Plain Bath*",        price: 40, includes: "Bath, Coat Brushing, Ear Cleaning, Anal Gland Extraction" }
   ],
 
   doodleTiers: [
@@ -40,7 +40,7 @@ const PRICES = {
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@700;800&family=Jost:wght@600;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
 
@@ -59,7 +59,8 @@ const PRICES = {
     --line:       #E7DFCC;
     --white:      #FFFFFF;
 
-    --font-display: 'Baloo 2', system-ui, sans-serif;
+    --font-display: 'Manrope', system-ui, sans-serif;   /* headline font */
+    --font-accent:  'Jost', system-ui, sans-serif;       /* caps/label font */
     --font-body:    'Work Sans', system-ui, sans-serif;
   }
 
@@ -100,35 +101,11 @@ const PRICES = {
     border-radius:50%;
     background:var(--plum);
     color:var(--white);
-    font-family:var(--font-display);
+    font-family:var(--font-accent);
     font-weight:700;
     font-size:1.05rem;
+    letter-spacing:.01em;
     flex:0 0 auto;
-  }
-
-  /* ============================================================
-     HEADER
-     ============================================================ */
-  header{
-    padding:22px 0;
-  }
-  header .wrap{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:16px;
-  }
-  .brand{ display:flex; align-items:center; gap:10px; }
-  .brand img{ height:76px; width:auto; }
-  .brand span{ font-family:var(--font-display); font-weight:700; font-size:1.1rem; }
-  header .call{
-    font-family:var(--font-display);
-    font-weight:600;
-    font-size:.95rem;
-    padding:10px 18px;
-    border-radius:999px;
-    background:var(--magenta);
-    color:var(--white);
   }
 
   /* ============================================================
@@ -136,15 +113,16 @@ const PRICES = {
      ============================================================ */
   .hero{
     text-align:center;
-    padding:18px 0 40px;
+    padding:40px 0 40px;
   }
   .hero img.mark{
     width:min(340px, 78vw);
     margin:0 auto 22px;
   }
   .hero h1{
-    font-size:clamp(1.7rem, 4vw, 2.3rem);
+    font-size:clamp(0.7rem, calc(5.6vw - 2.69px), 2.1rem);
     color:var(--ink);
+    white-space:nowrap;
   }
   .hero p{
     color:var(--ink-soft);
@@ -229,8 +207,9 @@ const PRICES = {
   }
   .cta .btn{
     display:inline-block;
-    font-family:var(--font-display);
-    font-weight:600;
+    font-family:var(--font-accent);
+    font-weight:700;
+    letter-spacing:.01em;
     font-size:1.05rem;
     padding:14px 30px;
     border-radius:999px;
@@ -283,7 +262,7 @@ const PRICES = {
      ============================================================ -->
 <section class="section" id="services">
   <div class="wrap">
-    <h2>Services*</h2>
+    <h2>Services</h2>
     <div class="svc-list" id="service-list"><!-- rendered by renderPrices() --></div>
   </div>
 </section>
@@ -320,7 +299,7 @@ const PRICES = {
      ============================================================ -->
 <section class="cta">
   <div class="wrap">
-    <a class="btn" href="tel:+13055550182">Call to book: (305) 555-0182</a>
+    <a class="btn" href="tel:+13055550182">CALL TO BOOK: (305) 555-0182</a>
   </div>
 </section>
 
