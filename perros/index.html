@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+
+<!-- =====================================================================
+     PRICES — EDIT HERE
+     This is the only part of the file you should need to touch to update
+     prices. Change the numbers (or names/descriptions) below and the
+     whole page updates itself — nothing else in the file needs editing.
+     Prices are numbers only (no "$"), the "$" is added automatically.
+     ===================================================================== -->
+<script>
+const PRICES = {
+
+  coreServices: [
+    { name: "Complete Grooming", price: 80, includes: "Style Hair Cut, Bath, Coat Brushing, Nail Clipping, Ear Cleaning, Anal Gland Extraction, Hygienic (Shaving Privates)" },
+    { name: "Complete Bath",     price: 50, includes: "Bath, Coat Brushing, Nail Clipping, Ear Cleaning, Anal Gland Extraction, Hygienic (Shaving Privates)" },
+    { name: "Plain Bath",        price: 40, includes: "Bath, Coat Brushing, Ear Cleaning, Anal Gland Extraction" }
+  ],
+
+  doodleTiers: [
+    { name: "Mini",     includes: "Up to 20 lbs", price: 105 },
+    { name: "Regular",  includes: "Up to 50 lbs", price: 125 },
+    { name: "Standard", includes: "Up to 90 lbs", price: 140 }
+  ],
+
+  addons: [
+    { name: "Flea* & Tick Treatment*", price: 15, includes: "" },
+    { name: "DeShedding* & DeMatting*", price: 25, includes: "" },
+    { name: "Nail Clipping",          price: 20, includes: "" }
+  ]
+};
+</script>
+<!-- ===================== end of editable prices ======================= -->
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Barks &amp; Tales Dog Spa | Grooming Prices</title>
+<meta name="description" content="Barks &amp; Tales Dog Spa — grooming, baths, doodle packages, and add-ons. Prices at a glance.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+  /* ============================================================
+     THEME TOKENS — pulled from the Barks & Tales logo
+     ============================================================ */
+  :root{
+    --ink:        #2B2438;   /* headings / body copy */
+    --ink-soft:   #6a6178;   /* secondary text */
+    --plum:       #4A3F63;   /* price-bubble purple, from the logo */
+    --teal:       #3C97A0;
+    --marigold:   #F0B92C;
+    --terracotta: #A66240;
+    --magenta:    #D14D8F;
+    --cream:      #FBF7EF;
+    --line:       #E7DFCC;
+    --white:      #FFFFFF;
+
+    --font-display: 'Baloo 2', system-ui, sans-serif;
+    --font-body:    'Work Sans', system-ui, sans-serif;
+  }
+
+  *,*::before,*::after{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    margin:0;
+    font-family:var(--font-body);
+    color:var(--ink);
+    background:var(--cream);
+    -webkit-font-smoothing:antialiased;
+  }
+  img{ max-width:100%; display:block; }
+  a{ color:inherit; text-decoration:none; }
+  ul{ margin:0; padding:0; list-style:none; }
+  h1,h2,h3{ font-family:var(--font-display); margin:0; }
+  .wrap{ max-width:760px; margin:0 auto; padding:0 24px; }
+
+  a:focus-visible, button:focus-visible{
+    outline:3px solid var(--magenta);
+    outline-offset:3px;
+    border-radius:6px;
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:0.001ms !important; transition-duration:0.001ms !important; scroll-behavior:auto !important; }
+  }
+
+  /* ============================================================
+     PRICE BUBBLE — one consistent shape/color, like the flyer
+     ============================================================ */
+  .price{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-width:64px;
+    height:64px;
+    padding:0 10px;
+    border-radius:50%;
+    background:var(--plum);
+    color:var(--white);
+    font-family:var(--font-display);
+    font-weight:700;
+    font-size:1.05rem;
+    flex:0 0 auto;
+  }
+
+  /* ============================================================
+     HEADER
+     ============================================================ */
+  header{
+    padding:22px 0;
+  }
+  header .wrap{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+  }
+  .brand{ display:flex; align-items:center; gap:10px; }
+  .brand img{ height:76px; width:auto; }
+  .brand span{ font-family:var(--font-display); font-weight:700; font-size:1.1rem; }
+  header .call{
+    font-family:var(--font-display);
+    font-weight:600;
+    font-size:.95rem;
+    padding:10px 18px;
+    border-radius:999px;
+    background:var(--magenta);
+    color:var(--white);
+  }
+
+  /* ============================================================
+     HERO — logo, one line, one button. Nothing else to read.
+     ============================================================ */
+  .hero{
+    text-align:center;
+    padding:18px 0 40px;
+  }
+  .hero img.mark{
+    width:min(340px, 78vw);
+    margin:0 auto 22px;
+  }
+  .hero h1{
+    font-size:clamp(1.7rem, 4vw, 2.3rem);
+    color:var(--ink);
+  }
+  .hero p{
+    color:var(--ink-soft);
+    font-size:1.08rem;
+    margin:12px 0 0;
+  }
+
+  hr.rule{
+    border:none;
+    border-top:2px solid var(--line);
+    margin:0 auto;
+    width:100%;
+    max-width:760px;
+  }
+
+  /* ============================================================
+     SECTION LABEL
+     ============================================================ */
+  .section{ padding:38px 0; }
+  .section h2{
+    font-size:1.5rem;
+    color:var(--ink);
+    margin-bottom:18px;
+  }
+
+  /* ============================================================
+     SERVICE ROWS — name + short includes on the left,
+     price on the right. Scannable, like the flyer list.
+     ============================================================ */
+  .svc-list{ display:flex; flex-direction:column; }
+  .svc-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+    padding:18px 0;
+    border-bottom:1px solid var(--line);
+  }
+  .svc-row:last-child{ border-bottom:none; }
+  .svc-row h3{
+    font-size:1.1rem;
+    color:var(--ink);
+  }
+  .svc-row .includes{
+    font-size:.86rem;
+    color:var(--ink-soft);
+    margin-top:4px;
+  }
+
+  /* ============================================================
+     DOODLE TIERS — 3 tight rows in a plum panel
+     ============================================================ */
+  .doodle-box{
+    background:var(--ink);
+    border-radius:16px;
+    padding:8px 24px;
+  }
+  .doodle-box .svc-row{ border-bottom-color:rgba(255,255,255,0.14); }
+  .doodle-box .svc-row:last-child{ border-bottom:none; }
+  .doodle-box h3{ color:var(--white); font-size:1.05rem; }
+  .doodle-box .includes{ color:#c9c1de; }
+  .doodle-box .price{ background:var(--marigold); color:var(--ink); }
+
+  /* ============================================================
+     ADD-ONS — compact, no card chrome
+     ============================================================ */
+  .addon-list .price{ min-width:54px; height:54px; font-size:.92rem; }
+
+  .fine-print{
+    font-size:.8rem;
+    color:var(--ink-soft);
+    font-style:italic;
+    margin-top:14px;
+  }
+
+  /* ============================================================
+     CTA
+     ============================================================ */
+  .cta{
+    text-align:center;
+    padding:44px 0;
+  }
+  .cta .btn{
+    display:inline-block;
+    font-family:var(--font-display);
+    font-weight:600;
+    font-size:1.05rem;
+    padding:14px 30px;
+    border-radius:999px;
+    background:var(--teal);
+    color:var(--white);
+  }
+
+  /* ============================================================
+     FOOTER
+     ============================================================ */
+  footer{
+    background:var(--ink);
+    color:#cabfe0;
+    padding:32px 0;
+    text-align:center;
+  }
+  footer .brand-line{
+    font-family:var(--font-display);
+    font-weight:700;
+    color:var(--white);
+    font-size:1rem;
+    margin-bottom:10px;
+  }
+  footer p{ margin:4px 0; font-size:.9rem; }
+  footer a{ color:#e6ddf6; }
+  footer .copyright{ margin-top:16px; font-size:.76rem; color:#8f84ac; }
+
+  @media (max-width:520px){
+    .svc-row{ align-items:flex-start; }
+  }
+
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<section class="hero" id="top">
+  <div class="wrap">
+    <img class="mark" src="logo.png" alt="Barks & Tales Dog Spa logo">
+    <h1>The best treat for your best friend.</h1>
+    <p>Full-service dog grooming — prices below, no surprises.</p>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ============================================================
+     CORE SERVICES
+     ============================================================ -->
+<section class="section" id="services">
+  <div class="wrap">
+    <h2>Services*</h2>
+    <div class="svc-list" id="service-list"><!-- rendered by renderPrices() --></div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ============================================================
+     DOODLES
+     ============================================================ -->
+<section class="section" id="doodles">
+  <div class="wrap">
+    <h2>Doodles complete grooming</h2>
+    <div class="doodle-box">
+      <div class="svc-list" id="doodle-list"><!-- rendered by renderPrices() --></div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ============================================================
+     ADD-ONS
+     ============================================================ -->
+<section class="section" id="addons">
+  <div class="wrap">
+    <h2>Additional services</h2>
+    <div class="svc-list addon-list" id="addon-list"><!-- rendered by renderPrices() --></div>
+    <p class="fine-print">*Starting prices. Final price depends on coat size and condition.</p>
+  </div>
+</section>
+
+<!-- ============================================================
+     CTA
+     ============================================================ -->
+<section class="cta">
+  <div class="wrap">
+    <a class="btn" href="tel:+13055550182">Call to book: (305) 555-0182</a>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer id="contact">
+  <div class="wrap">
+    <div class="brand-line">Barks &amp; Tales Dog Spa</div>
+    <p><a href="tel:+13055550182">(305) 555-0182</a> &nbsp;·&nbsp; <a href="mailto:hello@barksandtales.com">hello@barksandtales.com</a></p>
+    <p>123 Wagging Tail Ave, Miami, FL</p>
+    <p>Mon–Fri 8am–6pm · Sat 9am–4pm · Sun Closed</p>
+    <p class="copyright">© <span id="year"></span> Barks &amp; Tales Dog Spa. Phone and email shown are placeholders — update in the footer markup.</p>
+  </div>
+</footer>
+
+<script>
+/* =================================================================
+   RENDER — turns PRICES (defined at the top of the file, in <head>)
+   into HTML. No need to edit anything below this line.
+   ================================================================= */
+function money(n){ return "$" + Number(n).toFixed(0); }
+
+function renderRows(targetId, items){
+  const el = document.getElementById(targetId);
+  el.innerHTML = items.map(item => `
+    <div class="svc-row">
+      <div>
+        <h3>${item.name}</h3>
+        ${item.includes ? `<div class="includes">${item.includes}</div>` : ""}
+      </div>
+      <div class="price">${money(item.price)}</div>
+    </div>
+  `).join("");
+}
+
+renderRows("service-list", PRICES.coreServices);
+renderRows("doodle-list", PRICES.doodleTiers);
+renderRows("addon-list", PRICES.addons);
+document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>
