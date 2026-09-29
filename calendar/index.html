@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My Week</title>
+<style>
+  :root {
+    --bg: #fbfaf7;
+    --cell: #ffffff;
+    --line: #d9dde3;
+    --ink: #2b3440;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    height: 100%;
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Nunito", "Trebuchet MS", "Segoe UI", system-ui, sans-serif;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+  }
+  .week {
+    height: 100%;
+    padding: 8px 8px 60px;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: 56px repeat(4, 1fr);
+    gap: 6px;
+  }
+  .day {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    font-size: 21px;
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: .3px;
+  }
+  .cell {
+    appearance: none;
+    padding: 6px;
+    margin: 0;
+    border: 3px solid var(--line);
+    border-radius: 12px;
+    background: var(--cell);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
+    min-height: 0;
+  }
+  .cell:active { transform: scale(.97); }
+  .cell:focus-visible { outline: 4px solid #2b3440; outline-offset: 2px; }
+  .cell img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    pointer-events: none;
+    -webkit-user-drag: none;
+  }
+  .week.locked .cell { cursor: default; }
+  .week.locked .cell:active { transform: none; }
+
+  .lock-btn {
+    position: fixed;
+    right: 12px;
+    bottom: 8px;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border: 3px solid var(--line);
+    border-radius: 12px;
+    background: #fff;
+    color: #8a94a3;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .lock-btn svg { width: 24px; height: 24px; }
+  .lock-btn .closed { display: none; }
+  .lock-btn[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: #fff; }
+  .lock-btn[aria-pressed="true"] .open { display: none; }
+  .lock-btn[aria-pressed="true"] .closed { display: block; }
+  .lock-btn:focus-visible, .key:focus-visible { outline: 4px solid var(--ink); outline-offset: 2px; }
+
+  .pin {
+    position: fixed;
+    inset: 0;
+    background: rgba(251, 250, 247, .97);
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+  }
+  .pin.show { display: flex; }
+  .pin p { margin: 0; font-size: 20px; font-weight: 800; }
+  .dots { display: flex; gap: 14px; height: 22px; }
+  .dots span {
+    width: 18px; height: 18px;
+    border: 3px solid var(--ink);
+    border-radius: 50%;
+  }
+  .dots span.on { background: var(--ink); }
+  .dots.error { animation: shake .35s; }
+  .dots.error span { border-color: #ef6f6c; background: #ef6f6c; }
+  @keyframes shake {
+    25% { transform: translateX(-8px); } 75% { transform: translateX(8px); }
+  }
+  .keys { display: grid; grid-template-columns: repeat(3, 68px); gap: 10px; }
+  .key {
+    height: 60px;
+    border: 3px solid var(--line);
+    border-radius: 16px;
+    background: #fff;
+    color: var(--ink);
+    font-weight: 800;
+    font-size: 26px;
+    font-family: inherit;
+    cursor: pointer;
+  }
+  .key:active { background: #eef1f5; }
+  .key.small { font-size: 15px; }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .cell { transition: transform .08s ease; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .dots.error { animation: none; }
+  }
+</style>
+</head>
+<body>
+<main class="week" id="week" aria-label="Weekly calendar"></main>
+
+<button type="button" class="lock-btn" id="lockBtn" aria-pressed="false" aria-label="Lock calendar">
+  <svg class="open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <rect x="4" y="11" width="16" height="10" rx="2.5"/><path d="M8 11V7a4 4 0 0 1 7.5-2"/>
+  </svg>
+  <svg class="closed" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <rect x="4" y="11" width="16" height="10" rx="2.5"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>
+  </svg>
+</button>
+
+<div class="pin" id="pin" role="dialog" aria-modal="true" aria-label="Enter PIN to unlock">
+  <p>Enter PIN to unlock</p>
+  <div class="dots" id="dots"><span></span><span></span><span></span><span></span></div>
+  <div class="keys" id="keys"></div>
+</div>
+
+<script>
+  // The 6 pictures a cell cycles through: the first one is 100% transparent (empty),
+  // then your 5 pictures. Replace the files in the "images" folder, keeping the same names.
+  const IMAGES = [
+    "images/0-blank.png",
+    "images/1.png",
+    "images/2.png",
+    "images/3.png",
+    "images/4.png",
+    "images/5.png",
+    "images/6.png",
+    "images/7.png",
+    "images/8.png",
+    "images/9.png",
+    "images/10.png"
+  ];
+
+  const DAYS = [
+    ["Monday",    "#ef6f6c"],
+    ["Tuesday",   "#f5a02b"],
+    ["Wednesday", "#e0b400"],
+    ["Thursday",  "#4fb477"],
+    ["Friday",    "#3f9cff"],
+    ["Saturday",  "#8e7cf0"],
+    ["Sunday",    "#e56aa8"]
+  ];
+  const ROWS = 4;
+
+  // ---- Lock settings: change this 4-digit PIN to whatever you like ----
+  const PIN = "2468";
+  let locked = false;
+
+  const week = document.getElementById("week");
+
+  DAYS.forEach(([name, color]) => {
+    const h = document.createElement("div");
+    h.className = "day";
+    h.textContent = name;
+    h.style.background = color;
+    week.appendChild(h);
+  });
+
+  for (let r = 0; r < ROWS; r++) {
+    DAYS.forEach(([name, color]) => {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.className = "cell";
+      b.dataset.state = "0";
+      b.style.borderColor = color + "66"; // soft version of the day colour
+      b.setAttribute("aria-label", name + ", row " + (r + 1));
+      const img = document.createElement("img");
+      img.src = IMAGES[0];
+      img.alt = "";
+      b.appendChild(img);
+      b.addEventListener("click", () => {
+        if (locked) return;
+        const next = (Number(b.dataset.state) + 1) % IMAGES.length;
+        b.dataset.state = next;
+        img.src = IMAGES[next];
+      });
+      week.appendChild(b);
+    });
+  }
+
+  // ---- Lock / unlock ----
+  const lockBtn = document.getElementById("lockBtn");
+  const pinBox = document.getElementById("pin");
+  const dots = document.getElementById("dots");
+  const keys = document.getElementById("keys");
+  let entry = "";
+
+  function setLocked(state) {
+    locked = state;
+    week.classList.toggle("locked", state);
+    lockBtn.setAttribute("aria-pressed", String(state));
+    lockBtn.setAttribute("aria-label", state ? "Unlock calendar" : "Lock calendar");
+  }
+  function drawDots() {
+    [...dots.children].forEach((d, i) => d.classList.toggle("on", i < entry.length));
+  }
+  function openPin() { entry = ""; drawDots(); pinBox.classList.add("show"); }
+  function closePin() { pinBox.classList.remove("show"); entry = ""; drawDots(); lockBtn.focus(); }
+  function press(d) {
+    if (entry.length >= 4 || dots.classList.contains("error")) return;
+    entry += d;
+    drawDots();
+    if (entry.length === 4) {
+      if (entry === PIN) {
+        setLocked(false);
+        closePin();
+      } else {
+        dots.classList.add("error");
+        setTimeout(() => { dots.classList.remove("error"); entry = ""; drawDots(); }, 450);
+      }
+    }
+  }
+  function del() { entry = entry.slice(0, -1); drawDots(); }
+
+  ["1","2","3","4","5","6","7","8","9","Cancel","0","⌫"].forEach(k => {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "key" + (k === "Cancel" ? " small" : "");
+    b.textContent = k;
+    if (k === "⌫") b.setAttribute("aria-label", "Delete");
+    b.addEventListener("click", () => {
+      if (k === "Cancel") closePin();
+      else if (k === "⌫") del();
+      else press(k);
+    });
+    keys.appendChild(b);
+  });
+
+  lockBtn.addEventListener("click", () => { locked ? openPin() : setLocked(true); });
+
+  document.addEventListener("keydown", e => {
+    if (!pinBox.classList.contains("show")) return;
+    if (/^[0-9]$/.test(e.key)) press(e.key);
+    else if (e.key === "Backspace") del();
+    else if (e.key === "Escape") closePin();
+  });
+
+  // Preload so pictures switch instantly
+  IMAGES.forEach(src => { const i = new Image(); i.src = src; });
+</script>
+</body>
+</html>
