@@ -22,11 +22,14 @@
     user-select: none;
   }
   .week {
-    height: 100%;
+    /* Every column is at least 138px wide, so on a small screen the page scrolls sideways
+       instead of squeezing the columns. On a bigger display the columns grow evenly. */
+    min-height: 100%;
+    min-width: 1018px;
     padding: 8px 8px 60px;
     display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    grid-template-rows: 56px repeat(4, 1fr);
+    grid-template-columns: repeat(7, minmax(138px, 1fr));
+    grid-template-rows: 56px repeat(4, minmax(110px, 1fr));
     gap: 6px;
   }
   .day {
@@ -154,8 +157,8 @@
 </div>
 
 <script>
-  // The 6 pictures a cell cycles through: the first one is 100% transparent (empty),
-  // then your 5 pictures. Replace the files in the "images" folder, keeping the same names.
+  // The 10 pictures a cell cycles through: the first one is 100% transparent (empty),
+  // then your 9 pictures. Replace the files in the "images" folder, keeping the same names.
   const IMAGES = [
     "images/0-blank.png",
     "images/1.png",
@@ -166,8 +169,7 @@
     "images/6.png",
     "images/7.png",
     "images/8.png",
-    "images/9.png",
-    "images/10.png"
+    "images/9.png"
   ];
 
   const DAYS = [
